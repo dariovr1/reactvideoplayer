@@ -12,7 +12,10 @@ console.log(store.getState());
 
 const App = () => (
   <Provider store={store}>
+   <React.Fragment>
     <SearchBox />
+    <VideoPlayer />
+    </React.Fragment>
   </Provider>
 )
 

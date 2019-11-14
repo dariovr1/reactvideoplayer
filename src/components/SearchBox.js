@@ -1,21 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setTextSearch} from '../actions/search';
+import {getFirstVideo} from '../actions/video';
 import axios from 'axios';
 import getResponseByQuery from '../data/youtube';
 
  
 const mapStateToProps = (state) => {
     return { 
-        search: state.search,
-        video : state.video 
+        search: state.search
     }
 };
 
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        updateSearchBox: (text) => {dispatch(setTextSearch(text))}
+        updateSearchBox: (text) => {dispatch(setTextSearch(text))},
+        getfirstvideo: (arr) => dispatch(getFirstVideo(arr))
     })
 }
 
@@ -39,7 +40,7 @@ class SearchBox extends React.Component {
         axios.get(endpoint)
       .then(res => {
         let {data: {items} } = res;
-        console.log(items);
+        this.props.getfirstvideo(items);
       })
 
     }

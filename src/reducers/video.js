@@ -1,14 +1,17 @@
 import { GET_FIRST_VIDEO } from '../types/index';
 
-const videoReducerDefaultState = [];
+const initialState = {
+  item :""
+}
 
-export default (state = videoReducerDefaultState, action) => {
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case GET_FIRST_VIDEO:
-      return [
-        ...state,
-        action.item
-      ];
+      return {
+              ...state,
+              item : action.item
+            }
     default:
       return state;
   }
