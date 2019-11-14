@@ -48,7 +48,7 @@ class SearchBox extends React.Component {
 
   
     render = () => (
-        <input name="searchBox" onBlur={this.handleBlur} onChange={this.handleChange} value={this.props.search.text} />
+        <input name="searchBox" onBlur={this.handleBlur} onChange={this.handleChange} value={this.props.search} />
     )
   }
 

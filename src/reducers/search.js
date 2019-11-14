@@ -1,16 +1,11 @@
 import { SET_TEXT_SEARCH } from '../types/index';
 
-const searchReducerDefaultState = {
-  text: ''
-};
+const searchReducerDefaultState = "";
 
 export default (state = searchReducerDefaultState, action) => {
   switch (action.type) {
     case SET_TEXT_SEARCH:
-      return {
-        ...state,
-        text: action.text
-      };
+      return action.text;
     default:
       return state;
   }
