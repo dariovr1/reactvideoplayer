@@ -1,5 +1,15 @@
-import React from 'react';
+import React,{Fragment} from 'react';
 import YouTube from 'react-youtube';
+import {connect} from 'react-redux';
+import VideoDetails from './VideoDetails';
+
+const mapStateToProps = (state) => {
+  return { 
+      video: state.video
+  }
+};
+
+
 
 
 class VideoPlayer extends React.Component {
@@ -7,7 +17,7 @@ class VideoPlayer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        videoId : "",
+        playPause : false,
         opts : {
           height: '390',
           width: '640',
@@ -15,23 +25,44 @@ class VideoPlayer extends React.Component {
             autoplay: 0
           }
         }
+      };
+      this.Video1 = React.createRef()
+    }
+
+
+    handleClick = () => {
+      if (!this.state.playPause) {
+      this.Video1.current.internalPlayer.playVideo();
+      this.setState({
+        playPause : true
+      })
+      }else {
+        this.Video1.current.internalPlayer.pauseVideo();
+        this.setState({
+          playPause : false
+        })
       }
     }
   
 
   
     render() {
-      const videoId = this.state.videoId;
       return (
-        videoId !== "" ? (
+        this.props.video  !== null ? (
+          <Fragment>
             <YouTube
-            videoId={videoId}
+            ref={this.Video1}
+            videoId={this.props.video.id.videoId}
             opts={this.state.opts}
+            className="videoComponent"
           />
-          ) : "no video found"
+          <button onClick={this.handleClick}>{!this.state.playPause ? "Play" : "Pause" }</button>
+          <VideoDetails detail={this.props.video} />
+          </Fragment>
+          ) : null
       );
     }
   }
 
 
-  export default VideoPlayer;
+  export default connect(mapStateToProps)(VideoPlayer);

@@ -4,6 +4,7 @@ import {setTextSearch} from '../actions/search';
 import {getFirstVideo} from '../actions/video';
 import axios from 'axios';
 import getResponseByQuery from '../data/youtube';
+import YouTube from 'react-youtube';
 
  
 const mapStateToProps = (state) => {
@@ -34,6 +35,7 @@ class SearchBox extends React.Component {
         this.props.updateSearchBox(value);
     }
 
+    
     handleBlur = (e) =>  {
         let {name,value} = e.target;
         const endpoint = getResponseByQuery(value);
@@ -42,14 +44,17 @@ class SearchBox extends React.Component {
         let {data: {items} } = res;
         this.props.getfirstvideo(items);
       })
-
     }
 
 
+
+  
   
     render = () => (
+      <div>
         <input name="searchBox" onBlur={this.handleBlur} onChange={this.handleChange} value={this.props.search} />
-    )
+    </div>
+        )
   }
 
 
